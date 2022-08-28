@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/user/css/cart.css}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" th:href="@{/user/css/bootstrap.min.css}">
+<!-- style css -->
+<link rel="stylesheet" th:href="@{/user/css/style.css}">
+<!-- Responsive-->
+<link rel="stylesheet" th:href="@{user/css/responsive.css}">
+<!-- fevicon -->
+<link rel="icon" th:href="@{user/images/fevicon.png}" type="image/gif" />
+<!-- Scrollbar Custom CSS -->
+<link rel="stylesheet"
+	th:href="@{user/css/jquery.mCustomScrollbar.min.css}">
+<!-- Tweaks for older IEs-->
+<link rel="stylesheet"
+	href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+	media="screen">
+</head>
+	<body style="display: flex; flex-direction: column;" >
+<header style="width: 100%">
+				<!-- header inner -->
+				<div class="head_top">
+					<div class="header">
+
+						<div class="container-fluid">
+
+							<div class="row">
+								<div class="col-lg-3 logo_section">
+									<div class="full">
+										<div class="center-desk">
+											<div class="logo">
+												<a th:href="@{/home}"><img
+													th:src="@{/user/images/logo.png}" alt="#"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-9">
+									<div class="right_header_info">
+										<ul>
+											<li class="menu_iconb">
+												<a href="/login" th:if=" ${username} == null">Log in <img
+													style="margin-right: 15px;" th:src="@{user/icon/5.png}"
+													alt="#" />
+												</a>
+												<a href="/logout" th:if=" ${username} != null">Log out <img
+													style="margin-right: 15px;" th:src="@{user/icon/5.png}"
+													alt="#" />
+												</a>
+											</li>
+											<li class="menu_iconb">
+												<a href="history" >History 
+												</a>
+												
+											</li>
+											
+
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main>
+			
+	<div class="card" style="margin-top: 50px">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                        </div>
+                    </div>    
+                    <div class="row border-top border-bottom" th:each="item : ${cartDetail}">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" th:src="${item.product.image}"></div>
+                            <div class="col">
+                                <div class="row text-muted" th:text="${item.product.category.name}"></div>
+                                <div class="row" th:text="${item.product.name}"></div>
+                            </div>
+                            <div class="col">
+                                <a th:href="@{'/cart/deQuantity/' + ${item.id}}">-</a><a href="#" class="border" th:text="${item.quantity}"></a><a th:href="@{'/cart/adQuantity/' + ${item.id}}">+</a>
+                            </div>
+                            <div class="col"><a class="close" th:href="@{'/cart/delete/' + ${item.id}}">&#10005;</a></div>
+                        </div>
+                    </div>
+                    
+                    <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div><h5><b>Summary</b></h5></div>
+                    <hr>
+                    <form method="post" th:action="@{/cart/checkout}" th:object="${checkout}">
+                        <p>Address</p>
+                        <input  placeholder="Enter your Address" type="text" th:field="*{address}">
+                        <p>Phone Number</p>
+                        <input  placeholder="Enter your phone number" type="text" th:field="*{phoneNumber}">
+                        
+                        <div class="row" >
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right"><span class="text-muted" th:text="${total}"></span> VND</div>
+                    </div>
+                    <button class="btn" type="submit">CHECKOUT</button>
+                    </form >
+                </div>
+            </div>
+            
+        </div>
+        </main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/login/loginRegister.css}">
+</head>
+<body>
+	<div class="log-form">
+  <h2>Forgot Password</h2>
+  <form method="post" th:action="@{/forgot/forgot}">
+    <input type="email" title="username" placeholder="Email" name="email" id="email" />
+    <button type="submit" class="btn">Send</button>
+    <a class="forgot" href="#">Forgot Username?</a>
+    <br>
+    <a style="color: red" class="forgot" th:if="${message} != null" th:text="${message}"></a>
+    <br>
+  </form>
+</div><!--end log form -->
+</body>
+</html>
